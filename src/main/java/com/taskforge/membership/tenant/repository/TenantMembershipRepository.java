@@ -1,0 +1,21 @@
+package com.taskforge.membership.tenant.repository;
+
+import com.taskforge.membership.tenant.model.TenantMembership;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public interface TenantMembershipRepository extends JpaRepository<TenantMembership, UUID> {
+
+    Optional<TenantMembership> findByTenantIdAndUserId(UUID tenantId, UUID userId);
+
+    List<TenantMembership> findByTenantId(UUID tenantId);
+
+    List<TenantMembership> findByUserId(UUID userId);
+
+    void deleteByTenantIdAndUserId(UUID tenantId, UUID userId);
+
+    List<TenantMembership> findAllByUserId(UUID userId);
+}

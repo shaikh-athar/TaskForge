@@ -1,0 +1,2 @@
+ALTER TABLE projects ALTER COLUMN description TYPE TEXT;
+ALTER TABLE projects ALTER COLUMN board_config TYPE TEXT;

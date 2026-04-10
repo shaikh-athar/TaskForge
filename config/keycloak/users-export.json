@@ -1,0 +1,84 @@
+[
+  {
+    "username": "admin@taskforge.local",
+    "firstName": "Admin",
+    "lastName": "User",
+    "email": "admin@taskforge.local",
+    "emailVerified": true,
+    "createdTimestamp": 1766479491891,
+    "enabled": true,
+    "totp": false,
+    "disableableCredentialTypes": [],
+    "requiredActions": [],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": true,
+      "manage": true
+    }
+  },
+  {
+    "username": "user@example.com",
+    "firstName": "Standard",
+    "lastName": "User",
+    "email": "user@example.com",
+    "emailVerified": false,
+    "createdTimestamp": 1766488582434,
+    "enabled": true,
+    "totp": false,
+    "disableableCredentialTypes": [],
+    "requiredActions": [
+      "VERIFY_EMAIL"
+    ],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": true,
+      "manage": true
+    }
+  },
+  {
+    "username": "dev@example.com",
+    "firstName": "Dev",
+    "lastName": "User",
+    "email": "dev@example.com",
+    "emailVerified": true,
+    "createdTimestamp": 1766424166781,
+    "enabled": true,
+    "totp": false,
+    "disableableCredentialTypes": [],
+    "requiredActions": [],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": true,
+      "manage": true
+    }
+  },
+  {
+    "username": "testuser",
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "testuser@example.com",
+    "emailVerified": true,
+    "createdTimestamp": 1766434882405,
+    "enabled": true,
+    "totp": false,
+    "disableableCredentialTypes": [],
+    "requiredActions": [],
+    "notBefore": 0,
+    "access": {
+      "manageGroupMembership": true,
+      "view": true,
+      "mapRoles": true,
+      "impersonate": true,
+      "manage": true
+    }
+  }
+]

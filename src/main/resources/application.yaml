@@ -1,0 +1,121 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: taskforge
+  
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      client-type: jedis
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  # Database
+  datasource:
+    url: jdbc:postgresql://localhost:26257/taskforge
+    username: root
+    password:
+    driver-class-name: org.postgresql.Driver
+
+  # JPA
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  # Flyway
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    repair-on-migrate: true
+    out-of-order: true
+
+  # Security
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:10091/realms/taskforge
+          jwk-set-uri: http://localhost:10091/realms/taskforge/protocol/openid-connect/certs
+
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: taskforge-web
+            client-secret: Utsr2rPmccLGoRjRHBJ45Wj9jEBMVByU
+            authorization-grant-type: authorization_code
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:10091/realms/taskforge
+            user-name-attribute: preferred_username
+
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    # This line enables the logs in your TenantContextFilter
+    com.taskforge: DEBUG
+
+bucket4j:
+  enabled: true
+  cache-to-use: redis-jedis
+  filter-config-caching-enabled: false
+
+  filters:
+    - cache-name: rate-limit-auth
+      url: /api/v1/auth/login
+      rate-limits:
+        - bandwidths:
+            - capacity: 20
+              time: 1
+              unit: minutes
+
+    - cache-name: rate-limit-general
+      url: /api/v1/.*
+      rate-limits:
+        - bandwidths:
+            - capacity: 200
+              time: 1
+              unit: minutes
+
+    # Cache Debugging
+  logging:
+      level:
+        org.springframework.cache: TRACE
+        com.giffing.bucket4j: DEBUG
+        org.springframework.data.redis: DEBUG
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: taskforge-web
+      client-secret: Utsr2rPmccLGoRjRHBJ45Wj9jEBMVByU
+      realm: taskforge
+      app-name: TaskForge
+      use-pkce-with-authorization-code-grant: true
